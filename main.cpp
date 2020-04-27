@@ -50,6 +50,12 @@ auto ReadFromfile(string path){
     return b;
 }
 
+// write search function
+vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]){
+	cout << "No path found!" << "\n";
+  	return std::vector<vector<State>> {};
+}
+
 string CellString(State cell) {
   switch(cell) {
     case State::kObs: return "⛰️   ";
@@ -70,11 +76,15 @@ void PrintBoard(const vector<vector<State>> board){
 int main(){
     // initialize board elements
     //vector<vector<int>> board{{1,2},{3,4},{5,6}};
+    int init[2]{0, 0}; // start point
+    int goal[2]{4, 5}; // destination
 
     auto board = ReadFromfile("board.txt");
 
+    // Call search function
+    auto solution = Search(board, init, goal);
     // print the board
-    PrintBoard(board);
+    PrintBoard(solution);
 
     return 0;
 }
