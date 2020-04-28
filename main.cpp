@@ -11,7 +11,7 @@ using std::istringstream;
 using std::string;
 
 //custom type "State" empty or obstacle
-enum class State{kEmpty, kObs};
+enum class State{kEmpty, kObs, kClosed};
 
 // Function to read and parse string stream
 vector<State> ParseLine(string line) {
@@ -48,6 +48,18 @@ auto ReadFromfile(string path){
         }
     }
     return b;
+}
+
+// Add heuristic function - calculate the manhattan distance
+
+int Heuristic(int x1, int y1, int x2, int y2){
+  	
+  	int diffx = abs(x2-x1);
+  	int diffy = abs(y2-y1);
+  	
+  	int sumdiff = diffx + diffy;
+    
+    return sumdiff;
 }
 
 // write search function
