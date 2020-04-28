@@ -62,6 +62,15 @@ int Heuristic(int x1, int y1, int x2, int y2){
     return sumdiff;
 }
 
+/** 
+ * Add a node to the open list and mark it as open. 
+ */
+void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &openlist, vector<vector<State>> &grid) {
+  // Add node to open vector, and mark grid cell as closed.
+  openlist.push_back(vector<int>{x, y, g, h});
+  grid[x][y] = State::kClosed;
+}
+
 // write search function
 vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]){
 	cout << "No path found!" << "\n";
