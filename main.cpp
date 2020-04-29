@@ -50,6 +50,16 @@ auto ReadFromfile(string path){
     return b;
 }
 
+// Write function to compare the f-value of two nodes here
+bool Compare(const vector<int> n1, const vector<int> n2){
+	int f1 = n1[2]+n1[3];
+  	int f2 = n2[2]+n2[3];
+  	bool compare = f1 > f2 ? true : false;
+  	
+  return compare;
+}
+
+
 // Add heuristic function - calculate the manhattan distance
 
 int Heuristic(int x1, int y1, int x2, int y2){
