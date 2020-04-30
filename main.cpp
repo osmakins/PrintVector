@@ -4,6 +4,7 @@
 #include<sstream>
 #include<string>
 
+
 using std::cout;
 using std::vector;
 using std::fstream;
@@ -11,7 +12,7 @@ using std::istringstream;
 using std::string;
 
 //custom type "State" empty or obstacle
-enum class State{kEmpty, kObs, kClosed};
+enum class State{kEmpty, kObs, kClosed, kPath};
 
 // Function to read and parse string stream
 vector<State> ParseLine(string line) {
@@ -59,6 +60,13 @@ bool Compare(const vector<int> n1, const vector<int> n2){
   return compare;
 }
 
+/**
+ * Sort the two-dimensional vector of ints in descending order.
+ */
+void CellSort(vector<vector<int>> *v) {
+  sort(v->begin(), v->end(), Compare);
+
+}
 
 // Add heuristic function - calculate the manhattan distance
 
@@ -83,6 +91,52 @@ void AddToOpen(int x, int y, int g, int h, vector<vector<int>> &openlist, vector
 
 // write search function
 vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2]){
+
+vector<vector<int>> open {};
+  
+  // Initialize the starting node.
+  int x = init[0];
+  int y = init[1];
+  int g = 0;
+  int h = Heuristic(x, y, goal[0],goal[1]);
+  AddToOpen(x, y, g, h, open, grid);
+    while (open.size() > 0) {
+    // Get the next node
+    CellSort(&open);
+    auto current = open.back();
+    open.pop_back();
+    x = current[0];
+    y = current[1];
+    grid[x][y] = State::kPath;
+
+    // Check if we're done.
+    if (x == goal[0] && y == goal[1]) {
+      return grid;
+    }
+    
+    // If we're not done, expand search to current node's neighbors.
+    // ExpandNeighbors
+  }
+  
+  // We've run out of new nodes to explore and haven't found a path.
+  cout << "No path found!" << "\n";
+  return std::vector<vector<State>>{};
+  // TODO: while open vector is non empty {
+    // TODO: Sort the open list using CellSort, and get the current node.
+
+    // TODO: Get the x and y values from the current node,
+    // and set grid[x][y] to kPath.
+
+    // TODO: Check if you've reached the goal. If so, return grid.
+
+    
+    // If we're not done, expand search to current node's neighbors. This step will be completed in a later quiz.
+    // ExpandNeighbors
+  
+  //} // TODO: End while loop
+  
+  // We've run out of new nodes to explore and haven't found a path.
+
 	cout << "No path found!" << "\n";
   	return std::vector<vector<State>> {};
 }
