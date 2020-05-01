@@ -97,6 +97,20 @@ int Heuristic(int x1, int y1, int x2, int y2)
   return sumdiff;
 }
 
+// TODO: Write CheckValidCell here.
+
+bool CheckValidCell(int x, int y, vector<vector<State>> &grid)
+{
+  // Check that (x,y) coordinatea pair is on the grid
+  bool x_on_grid = x > 0 && x < grid.size() ? true : false;
+  bool y_on_grid = y > 0 && y < grid[0].size() ? true : false;
+
+  // Check that the grid at (x,y) is kEmpty
+  if (x_on_grid && y_on_grid)
+    return grid[x][y] == State::kEmpty;
+  return false;
+}
+
 /** 
  * Add a node to the open list and mark it as open. 
  */
@@ -130,6 +144,7 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
   int y = init[1];
   int g = 0;
   int h = Heuristic(x, y, goal[0], goal[1]);
+
   AddToOpen(x, y, g, h, open, grid);
   while (open.size() > 0)
   {
