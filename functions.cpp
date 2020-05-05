@@ -1,14 +1,10 @@
 #include <iostream>
 #include <vector>
-#include <fstream>
-#include <sstream>
 #include <string>
 #include <algorithm> // for sort
 
 using std::abs;
 using std::cout;
-using std::ifstream;
-using std::istringstream;
 using std::sort;
 using std::string;
 using std::vector;
@@ -17,46 +13,6 @@ using std::vector;
 
 // directional deltas
 const int delta[4][2]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
-
-// Function to read and parse string stream
-vector<State> ParseLine(string line)
-{
-  istringstream sline(line);
-  int num;
-  char ch;
-  vector<State> rw;
-  while (sline >> num >> ch && ch == ',')
-  {
-    if (num == 0)
-    {
-      rw.push_back(State::kEmpty);
-    }
-    else
-    {
-      rw.push_back(State::kObs);
-    }
-  }
-  return rw;
-}
-
-// Fill board from file content
-vector<vector<State>> ReadFromfile(string path)
-{
-  vector<vector<State>> b{};
-  //file open and stream
-  ifstream my_file(path);
-  if (my_file)
-  {
-    cout << "The stream has been created \n";
-    string line;
-    while (getline(my_file, line))
-    {
-      vector<State> srow = ParseLine(line);
-      b.push_back(srow);
-    }
-  }
-  return b;
-}
 
 // Write function to compare the f-value of two nodes here
 bool Compare(const vector<int> n1, const vector<int> n2)
@@ -69,6 +25,7 @@ bool Compare(const vector<int> n1, const vector<int> n2)
 /**
  * Sort the two-dimensional vector of ints in descending order.
  */
+
 void CellSort(vector<vector<int>> *v)
 {
   sort(v->begin(), v->end(), Compare);
@@ -174,34 +131,4 @@ vector<vector<State>> Search(vector<vector<State>> grid, int init[2], int goal[2
   cout << "No path found!"
        << "\n";
   return std::vector<vector<State>>{};
-}
-
-string CellString(State cell)
-{
-  switch (cell)
-  {
-  case State::kObs:
-    return "⛰️   ";
-  case State::kPath:
-    return "🚗   ";
-  case State::kStart:
-    return "🚦   ";
-  case State::kFinish:
-    return "🏁   ";
-  default:
-    return "0   ";
-  }
-}
-
-// function to print 2D board vector
-void PrintBoard(const vector<vector<State>> board)
-{
-  for (int i = 0; i < board.size(); i++)
-  {
-    for (int j = 0; j < board[i].size(); j++)
-    {
-      cout << CellString(board[i][j]) << " ";
-    }
-    cout << "\n";
-  }
 }
