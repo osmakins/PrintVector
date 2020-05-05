@@ -13,16 +13,7 @@ using std::sort;
 using std::string;
 using std::vector;
 
-//custom type "State" empty or obstacle
-enum class State
-{
-  kEmpty,
-  kObs,
-  kClosed,
-  kPath,
-  kStart,
-  kFinish
-};
+#include "classes.cpp"
 
 // directional deltas
 const int delta[4][2]{{-1, 0}, {0, -1}, {1, 0}, {0, 1}};
